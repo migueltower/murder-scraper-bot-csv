@@ -1,16 +1,14 @@
-#!/usr/bin/env python
-# coding: utf-8
-
+import os
 import requests
 from bs4 import BeautifulSoup
 import csv
 
-# --- Define your batch here ---
-year = 2024
-prefix = f"CR{year}-"
-start = 0         # ← change manually for each batch
-end = 100         # ← change manually for each batch
+# --- Read batch parameters from GitHub Action inputs ---
+start = int(os.getenv("START", 0))
+end = int(os.getenv("END", 100))
+year = int(os.getenv("YEAR", 2024))
 
+prefix = f"CR{year}-"
 case_numbers = [f"{prefix}{str(i).zfill(6)}" for i in range(start, end + 1)]
 
 urls = [
