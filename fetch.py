@@ -1,3 +1,4 @@
+
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -59,8 +60,9 @@ for case_number, url in zip(case_numbers, urls):
             "First Charge": f"Error: {e}"
         })
 
+# Save to CSV with dynamic filename
 csv_filename = f"charges_{prefix}{start}-{end}.csv"
-with open("results.csv", mode="w", newline="", encoding="utf-8") as file:
+with open(csv_filename, mode="w", newline="", encoding="utf-8") as file:
     writer = csv.DictWriter(file, fieldnames=["Case Number", "URL", "First Charge"])
     writer.writeheader()
     writer.writerows(results)
