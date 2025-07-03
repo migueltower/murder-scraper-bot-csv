@@ -1,3 +1,4 @@
+
 name: Run Murder Scraper
 
 on:
@@ -31,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install beautifulsoup4 requests
 
       - name: Run the scraper
         env:
@@ -39,3 +40,9 @@ jobs:
           END: ${{ github.event.inputs.END }}
           YEAR: ${{ github.event.inputs.YEAR }}
         run: python fetch.py
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: results-csv
+          path: charges_CR${{ github.event.inputs.YEAR }}-${{ github.event.inputs.START }}-${{ github.event.inputs.END }}.csv
